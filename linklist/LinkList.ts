@@ -1,4 +1,4 @@
-class LinkListNode<T> {
+export class LinkListNode<T> {
   private value: T;
   private next: LinkListNode<T> | null;
 
@@ -24,7 +24,7 @@ class LinkListNode<T> {
   }
 }
 
-class LinkList<T> {
+export class LinkList<T> {
   private head: LinkListNode<T> | null;
   private tail: LinkListNode<T> | null;
   private length: number;
@@ -45,11 +45,12 @@ class LinkList<T> {
   }
 
   getHead() {
-    if (this.head !== null) {
-      console.log("head is: ", this.head.getValue());
-    } else {
-      console.log("head is null");
-    }
+    return this.head;
+  }
+
+  setHead(value: T) {
+    const newNode = new LinkListNode<T>(value);
+    this.head = newNode;
   }
 
   getTail() {
@@ -95,19 +96,19 @@ class LinkList<T> {
     newNode.setNext(this.head);
     this.head = newNode;
     this.length++;
-    return this;
+    return this.head;
   }
 
   shift() {
-    const nextNode = this.get(1);
-    this.head?.setNext(null);
-    this.head = nextNode;
+    let temp = this.head;
+    this.head = temp!.getNext();
+    temp?.setNext(null);
     this.length--;
     if (this.length === 0) {
       this.head = null;
       this.tail = null;
     }
-    return this;
+    return temp;
   }
 
   set(index: number, value: T) {
@@ -160,11 +161,3 @@ class LinkList<T> {
     return this;
   }
 }
-
-const linkList = new LinkList<number>(1);
-linkList.push(2);
-linkList.push(10);
-linkList.insert(1, 6);
-linkList.remove(1);
-linkList.reverse();
-linkList.printList();

@@ -1,4 +1,6 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.LinkList = exports.LinkListNode = void 0;
 class LinkListNode {
     constructor(value) {
         this.value = value;
@@ -17,6 +19,7 @@ class LinkListNode {
         return this.next;
     }
 }
+exports.LinkListNode = LinkListNode;
 class LinkList {
     constructor(value) {
         const newNode = new LinkListNode(value);
@@ -32,12 +35,11 @@ class LinkList {
         }
     }
     getHead() {
-        if (this.head !== null) {
-            console.log("head is: ", this.head.getValue());
-        }
-        else {
-            console.log("head is null");
-        }
+        return this.head;
+    }
+    setHead(value) {
+        const newNode = new LinkListNode(value);
+        this.head = newNode;
     }
     getTail() {
         if (this.tail !== null) {
@@ -81,19 +83,18 @@ class LinkList {
         newNode.setNext(this.head);
         this.head = newNode;
         this.length++;
-        return this;
+        return this.head;
     }
     shift() {
-        var _a;
-        const nextNode = this.get(1);
-        (_a = this.head) === null || _a === void 0 ? void 0 : _a.setNext(null);
-        this.head = nextNode;
+        let temp = this.head;
+        this.head = temp.getNext();
+        temp === null || temp === void 0 ? void 0 : temp.setNext(null);
         this.length--;
         if (this.length === 0) {
             this.head = null;
             this.tail = null;
         }
-        return this;
+        return temp;
     }
     set(index, value) {
         if (index < 0 && index > this.length - 1)
@@ -149,10 +150,4 @@ class LinkList {
         return this;
     }
 }
-const linkList = new LinkList(1);
-linkList.push(2);
-linkList.push(10);
-linkList.insert(1, 6);
-linkList.remove(1);
-linkList.reverse();
-linkList.printList();
+exports.LinkList = LinkList;
