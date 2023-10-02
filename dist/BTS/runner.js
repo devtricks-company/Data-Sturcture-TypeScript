@@ -1,0 +1,12 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const BTS_1 = require("./BTS");
+let myTree = new BTS_1.BTS();
+myTree.insert(47);
+myTree.insert(21);
+myTree.insert(76);
+myTree.insert(18);
+myTree.insert(52);
+myTree.insert(22);
+console.log(myTree.root);
+console.log(myTree.minValueNode(myTree.root));
